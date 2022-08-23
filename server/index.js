@@ -11,6 +11,8 @@ const socketIO = require("socket.io")(http, {
   },
 });
 
+let users = [];
+
 socketIO.on("connection", (socket) => {
   console.log(`🔥 : ${socket.id} user has just connected!`);
 
@@ -18,6 +20,11 @@ socketIO.on("connection", (socket) => {
   socket.on("message", (data) => {
     console.log(data, "Data");
     socketIO.emit("messageResponse", data);
+  });
+
+  socket.on("newUser", (data) => {
+    users.push(data);
+    socketIO.emit("newUserResponse", users);
   });
 
   socket.on("disconnect", () => {
