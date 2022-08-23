@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const ChatBody = ({ messages, lastMessageRef }) => {
+const ChatBody = ({ messages, lastMessageRef, typingStatus }) => {
   const navigate = useNavigate();
 
   const handleLeaveChat = () => {
@@ -9,10 +9,6 @@ const ChatBody = ({ messages, lastMessageRef }) => {
     navigate("/");
     window.location.reload();
   };
-
-  useEffect(() => {
-    console.log(messages, "Messages");
-  });
 
   return (
     <>
@@ -46,7 +42,7 @@ const ChatBody = ({ messages, lastMessageRef }) => {
         <div className="message__status"></div>
         <div ref={lastMessageRef} />
       </div>
-      <p>Someone is typing...</p>
+      <p>{typingStatus}</p>
     </>
   );
 };

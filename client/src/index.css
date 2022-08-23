@@ -108,6 +108,13 @@
   align-items: center;
   justify-content: space-between;
 }
+.chatBar {
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 20px;
+    border: 0;
+}
 .message {
   width: 80%;
   height: 100%;

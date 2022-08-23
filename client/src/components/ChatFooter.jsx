@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import checkPageStatus from "./Utils/functions";
 
 const ChatFooter = ({ socket }) => {
   const [message, setMessage] = useState("");
@@ -15,20 +16,23 @@ const ChatFooter = ({ socket }) => {
         id: `${socket.id}${Math.random()}`,
         socketID: socket.id,
       });
+      checkPageStatus(message, localStorage.getItem("userName"));
     }
     setMessage("");
   };
+
   return (
     <div className="chat__footer">
-      <form onSubmit={handleSendMessage}>
+      <form className="chatForm" onSubmit={handleSendMessage}>
         <input
-          className="chatForm"
+          className="chatBar"
           type="text"
           placeholder="message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleTyping}
         />
+        <button className="sendBtn">SEND</button>
       </form>
     </div>
   );

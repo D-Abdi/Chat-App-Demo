@@ -9,16 +9,30 @@ const ChatPage = ({ socket }) => {
   const lastMessageRef = useRef(null);
 
   useEffect(() => {
+    console.log(socket, "Socket");
     socket.on("messageResponse", (data) => setMessages([...messages, data]));
   }, [socket, messages]);
+
+  useEffect(() => {
+    fetchMessages();
+  }, []);
 
   useEffect(() => {
     lastMessageRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   useEffect(() => {
-    socket.on("typingResponse", (data) => setTypingStatus(data));
+    socket.on("typingResponse", (data) => {
+      console.log(data);
+      setTypingStatus(data);
+    });
   }, [socket]);
+
+  function fetchMessages() {
+    fetch("http://localhost:4000/api")
+      .then((response) => response.json())
+      .then((data) => setMessages(data.messages));
+  }
 
   return (
     <div className="chat">
